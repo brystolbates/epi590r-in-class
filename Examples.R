@@ -38,18 +38,13 @@ tbl_summary(
 		sleep_wknd ~ "Sleep on Weekends",
 		income ~ "Income"
 	),
-
-	missing_text = "Missing",
-
-	statistic = list(starts_with("sleep") ~ "min = {min}; max ~ {max}", income ~ "{p10} to {p90}"),
-
-	digits = list(starts_with("sleep") ~ c (1,1), income ~ c(3,3))
-
-) |>
-
-	add_p(test = list(
-		all_continuous() ~ "t.test",
-		all_categorical() ~ "chisq.test"
-	)) |>
-
-add_overall(col_label = "**Total** N = {N}")
+	statistic = list(starts_with("sleep") ~ "min = {min}; max = {max}",
+									 income ~ "{p10} to {p90}"),
+	digits = list(starts_with("sleep") ~ c(1, 1),
+								income ~ c(3, 3))
+	|>
+		add_p(test = list(
+			all_continuous() ~ "t.test",
+			all_categorical() ~ "chisq.test"
+		)) |>
+		add_overall()
