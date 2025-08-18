@@ -19,21 +19,37 @@ nlsy <- read_csv(here::here("data", "raw", "nlsy.csv"),
 		glasses_cat = factor(glasses, labels = c("No", "Yes"))
 	)
 
-# add labels for the variables and for the "missing" category
+# create basic table stratified by sex and use helper function to find sleep variables
+#then label and get rid of missing
+#then add p-values
 tbl_summary(
 	nlsy,
+
 	by = sex_cat,
+
 	include = c(
-		sex_cat, race_eth_cat, region_cat,
-		sleep_wkdy, sleep_wknd, income
+		race_eth_cat, region_cat, income, starts_with("sleep")
 	),
+
 	label = list(
 		race_eth_cat ~ "Race/ethnicity",
 		region_cat ~ "Region",
-		sleep_wkdy ~ "Sleep Weekday",
-		sleep_wknd ~ "Sleep Weekend",
+		sleep_wkdy ~ "Sleep on Weekdays",
+		sleep_wknd ~ "Sleep on Weekends",
 		income ~ "Income"
 	),
-	missing_text = "Missing"
-)
 
+	missing_text = "Missing",
+
+	statistic = list(starts_with("sleep") ~ "min = {min}; max ~ {max}", income ~ "{p10} to {p90}"),
+
+	digits = list(starts_with("sleep") ~ c (1,1), income ~ c(3,3))
+
+) |>
+
+	add_p(test = list(
+		all_continuous() ~ "t.test",
+		all_categorical() ~ "chisq.test"
+	)) |>
+
+add_overall(col_label = "**Total** N = {N}")
