@@ -1,4 +1,4 @@
 # EPI590R repo
 
-This repository belongs to sfniedn
+This repository belongs to Brystol Bates
 
