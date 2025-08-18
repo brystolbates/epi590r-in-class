@@ -1,3 +1,4 @@
 # EPI590R repo
 
-This repository belongs to asdgsdfgdf
+This repository belongs to Brystol Bates
+
