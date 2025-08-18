@@ -132,3 +132,70 @@ tbl_merge(list(tbl_no_int, tbl_int),
 )
 
 
+
+#Exercise 3
+
+tbl_uvregression(
+	nlsy,
+	x = sex_cat,
+	include = c(
+		nsibs, sleep_wkdy, sleep_wknd, income
+	),
+	method = lm
+)
+
+
+#Exercise 4
+
+nsibpoisson_model <- glm(nsibs ~ eyesight_cat + sex_cat + income,
+											data = nlsy, family = poisson())
+
+tbl_regression(
+	nsibpoisson_model,
+	exponentiate = TRUE,
+	label = list(
+		sex_cat ~ "Sex",
+		eyesight_cat ~ "Eyesight",
+		income ~ "Income"
+	)
+)
+
+#Exercise 5
+
+logbinom_model <- glm(glasses ~ eyesight_cat + sex_cat,
+											data = nlsy, family = binomial(link="log"))
+
+
+tbl_regression(
+	logbinom_model,
+	exponentiate = TRUE,
+	label = list(
+		sex_cat ~ "Sex",
+		eyesight_cat ~ "Eyesight"
+	)
+)
+
+# Exercise 6
+
+poisson_table <- tbl_regression(
+	logistic_model,
+	exponentiate = TRUE,
+	label = list(
+		sex_cat ~ "Sex",
+		eyesight_cat ~ "Eyesight"
+	)
+)
+
+
+logbinom_table <- tbl_regression(
+	logistic_model,
+	exponentiate = TRUE,
+	label = list(
+		sex_cat ~ "Sex",
+		eyesight_cat ~ "Eyesight"
+	)
+)
+
+tbl_merge(list(poisson_table, logbinom_table),
+					tab_spanner = c("**Poisson Regression**", "**Log-linear Regression**")
+)
