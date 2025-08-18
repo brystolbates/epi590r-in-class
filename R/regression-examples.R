@@ -199,3 +199,13 @@ logbinom_table <- tbl_regression(
 tbl_merge(list(poisson_table, logbinom_table),
 					tab_spanner = c("**Poisson Regression**", "**Log-linear Regression**")
 )
+
+
+
+
+install.packages("sjPlot")
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+
+tab_model (logbinom_model, nsibspoisson_model)
