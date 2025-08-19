@@ -102,3 +102,11 @@ standevna <- function (j, na.rm = TRUE){
 
 standevna(jb, na.rm = FALSE)
 standevna(jb)
+
+
+#Exercise 2.6.3
+
+sd(nlsy$income)
+sd(nlsy$income, TRUE) #omitting NAs
+
+standevna (nlsy$income) #matches omit without having to get rid of NAs with TRUE statement
