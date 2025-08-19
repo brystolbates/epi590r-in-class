@@ -61,18 +61,24 @@ j <- c(3, 7, 5, 9, 6, 1)
 sd(j)
 
 standev <- function (j){
-mean_j <- mean(j)
-diff <- j - mean_j
-sqdiff <- diff^2
-num <- sum (sqdiff)
+	if (length(j) <=1) {return (NA)}
+	else {
+		mean_j <- mean(j)
+   diff <- j - mean_j
+   sqdiff <- diff^2
+   num <- sum (sqdiff)
 
-denom <- length(j) - 1
-standev_answer <- sqrt(num/denom)
+   denom <- length(j) - 1
+   standev_answer <- sqrt(num/denom)
 
-return(standev_answer)
+   return(standev_answer) }
+
 }
 
 standev(j)
+p <- 4
+standev(p)
+
 
 #Exercise 2.6.2
 jb <- c(3, 7, 5, 9, 6, 1, NA, NA)
@@ -80,7 +86,9 @@ sd(jb)
 
 standevna <- function (j, na.rm = TRUE){
 	if (na.rm == TRUE) {jnona <- na.omit(j)}
-
+		else {jnona <- j}
+	if (length(j) <=1) {return (NA)}
+	else {
 	mean_jnona <- mean(jnona)
 	diff <- jnona - mean_jnona
 	sqdiff <- diff^2
@@ -89,7 +97,7 @@ standevna <- function (j, na.rm = TRUE){
 	denom <- length(jnona) - 1
 	standev_answer <- sqrt(num/denom)
 
-	return(standev_answer)
+	return(standev_answer)}
 }
 
-standevna(jb)
+standevna(jb, na.rm = FALSE)
