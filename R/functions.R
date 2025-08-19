@@ -54,4 +54,42 @@ raise (2)
 raise(5)
 
 
+#Exercise 2.6.1
 
+j <- c(3, 7, 5, 9, 6, 1)
+
+sd(j)
+
+standev <- function (j){
+mean_j <- mean(j)
+diff <- j - mean_j
+sqdiff <- diff^2
+num <- sum (sqdiff)
+
+denom <- length(j) - 1
+standev_answer <- sqrt(num/denom)
+
+return(standev_answer)
+}
+
+standev(j)
+
+#Exercise 2.6.2
+jb <- c(3, 7, 5, 9, 6, 1, NA, NA)
+sd(jb)
+
+standevna <- function (j, na.rm = TRUE){
+	if (na.rm == TRUE) {jnona <- na.omit(j)}
+
+	mean_jnona <- mean(jnona)
+	diff <- jnona - mean_jnona
+	sqdiff <- diff^2
+	num <- sum (sqdiff)
+
+	denom <- length(jnona) - 1
+	standev_answer <- sqrt(num/denom)
+
+	return(standev_answer)
+}
+
+standevna(jb)
